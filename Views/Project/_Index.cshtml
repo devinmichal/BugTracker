@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BugTracker.Models.Project>
+
+@{
+    ViewBag.Title = "Admin";
+}
+
+<!-- ============================================================== -->
+<!-- START YOUR CONTENT HERE -->
+<!-- ============================================================== -->
+
+
+
+  <div class="box-info full">
+    <h2><strong>Projects</strong></h2>
+
+    <!-- Additional buttons -->
+    <div class="additional-btn">
+
+        <a class="additional-icon" href="#" data-toggle="collapse" data-target="#projects"><i class="fa fa-chevron-down"></i></a>
+    </div>
+      <div id="projects" class="collapse in">
+          <div class="table-responsive">
+              <table id="projtable" data-sortable class="table table-striped">
+                  <thead>
+                      <tr>
+
+                          <th>@Html.DisplayNameFor(model => model.Name)</th>
+                          <th>Options</th>
+
+                      </tr>
+                  </thead>
+
+                  <tbody>
+                      @foreach (var n in Model)
+                      {
+                          <tr>
+                              <td><strong>@n.Name</strong></td>
+                              <td>
+                                  <div class="btn-group btn-group-xs">
+                                      <a href="@Url.Action("Edit", "Project", new { id = n.Id })" data-toggle="tooltip" title="edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
+
+                                  </div>
+                              </td>
+
+                          </tr>
+                      }
+
+                  </tbody>
+              </table>
+          </div>
+          </div>
+      </div>
+
+
+

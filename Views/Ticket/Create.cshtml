@@ -1,0 +1,129 @@
+﻿@model BugTracker.Models.Ticket
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_layout2.cshtml";
+}
+
+
+
+
+
+
+
+<div class="body content rows scroll-y">
+
+    <div class="full-content-center animated fadeInDownBig">
+        <div class="login-wrap">
+
+            <div class="box-info">
+                <h2><strong>Create</strong> Ticket</h2>
+                <!-- Additional button -->
+                <!-- Basic form body -->
+
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProjectId, "Project", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("ProjectId", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StatusId, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PriorityId, "Priority", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("PriorityId", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.PriorityId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TypeId, "Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("TypeId", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Hidden("OwnerId", User.Identity.GetUserId())
+
+                        </div>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AssignedUserId, "Assign", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("AssignedUserId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.AssignedUserId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control", id = "body" } })
+                                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div><!-- End div #basic-form -->
+            <p class="text-center"><a href="@Url.Action("Index","Admin")"><i class="fa fa-home"></i>Back to home</a></p>
+        </div><!-- End div .box-info -->
+    </div><!-- End div .col-sm-6 -->
+
+</div>
+
+
+
+
+
+
+    @section scripts
+    {
+        <script type="text/javascript">
+            tinymce.init({
+                selector: "#body"
+            });
+        </script>
+    }
+
+
+
+
+
+

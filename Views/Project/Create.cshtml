@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_layout2.cshtml";
+}
+
+
+
+
+
+
+<div class="body content rows scroll-y">
+
+    <div class="full-content-center animated fadeInDownBig">
+        <div class="login-wrap">
+            <div class="box-info">
+                <h2><strong>Project</strong> Creation</h2>
+
+                <!-- Basic form body -->
+                <div id="basic-form" class="collapse in">
+
+                    <form method="post" action="@Url.Action("Create")">
+                        <div class="form-group">
+                            <label for="Name">Project name:</label>
+                            <input name="Name" type="text" placeholder="Name" />
+                            <button class="btn btn-default" name="Submit" type="submit">Submit</button>
+                        </div>
+                    </form>
+
+                </div><!-- End div #basic-form -->
+            </div><!-- End div .box-info -->
+        </div><!-- End div .col-sm-6 -->
+        <p class="text-center"><a href="@Url.Action("Index","Admin")"><i class="fa fa-home"></i>Back to home</a></p>
+    </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

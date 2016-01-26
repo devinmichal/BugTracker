@@ -1,0 +1,49 @@
+﻿
+@model IEnumerable<BugTracker.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Role Assign";
+    Layout = "~/Views/Shared/_layout2.cshtml";
+
+}
+
+<div class="body content rows scroll-y">
+    <div class="full-content-center animated fadeInDownBig">
+        <div class="login-wrap">
+            <div class="box-info">
+                <h2><strong>User</strong> roles</h2>
+
+                <!-- Basic form body -->
+                <div id="basic-form" class="collapse in">
+
+                    @foreach (var u in Model)
+                    {
+
+                        <form role="form" method="post">
+                            <div class="form-group">
+                                <span>@Html.DisplayFor(modelU => u.DisplayName)</span>
+                                <label for="exampleInputEmail1">Change Role:</label>
+                                <select class="form-control" name="RoleName">
+                                    <option value="Admin">Admin</option>
+                                    <option value="Project Manager">Project Manager</option>
+                                    <option value="Developer">Developer</option>
+                                    <option value="Submitter">Submitter</option>
+                                </select>
+                            </div>
+                            <input type="hidden" name="Id" value="@u.Id" />
+                            <button class="btn btn-default" type="submit" formaction="@Url.Action("RoleAdd", "Manage")">Add</button> <button class="btn btn-default" type="submit" formaction="@Url.Action("RoleRemove", "Manage")">Remove</button>
+                        </form>
+                    }
+                </div><!-- End div #basic-form -->
+            </div><!-- End div .box-info -->
+        </div><!-- End div .col-sm-6 -->
+        <p class="text-center"><a href="@Url.Action("Index","Admin")"><i class="fa fa-home"></i>Back to home</a></p>
+    </div>
+    </div>
+
+
+
+
+
+
+
+

@@ -1,0 +1,135 @@
+﻿@model BugTracker.Models.Ticket
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_layout2.cshtml";
+}
+
+
+
+
+
+
+
+
+
+<div class="body content rows scroll-y">
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <!-- Basic form -->
+            <div class="box-info">
+                <h2><strong>Edit</strong> Ticket</h2>
+                <!-- Additional button -->
+              
+                <!-- Basic form body -->
+                <div id="basic-form" class="collapse in">
+
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                        
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.Id)
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Project.Id, "Project Assigned", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("ProjectId", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Project.Id, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.StatusId, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("StatusId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.TypeId, "Type", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("TypeId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            @if (User.IsInRole("Project Manager") || User.IsInRole("Admin"))
+                            {
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PriorityId, "Priority", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("PriorityId", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PriorityId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AssignedUserId, "Assign User", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("AssignedUserId", null, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.AssignedUserId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Body, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Body, new { htmlAttributes = new { @class = "form-control", @id= "body" } })
+                                    @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div><!-- End div #basic-form -->
+            </div><!-- End div .box-info -->
+        </div><!-- End div .col-sm-6 -->
+       
+    </div>
+    <p class="text-center"><a href="@Url.Action("Index","Admin")"><i class="fa fa-home"></i>Back to home</a></p>
+</div>
+
+
+
+@section scripts
+    {
+<script type="text/javascript">
+        tinymce.init({
+            selector: "#body"
+        });
+</script>
+    }
+
+
+
+
+
+
+
+

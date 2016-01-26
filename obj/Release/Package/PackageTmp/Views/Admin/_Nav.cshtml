@@ -1,0 +1,58 @@
+﻿@model BugTracker.Models.ApplicationUser
+
+  <!-- BEGIN NAVBAR CONTENT-->
+<div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <!-- Navbar header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <i class="fa fa-angle-double-down"></i>
+            </button>
+        </div><!-- End div .navbar-header -->
+        <!-- Navbar collapse -->
+        <div class="navbar-collapse collapse">
+
+
+            <!-- Right navbar -->
+            <ul class="nav navbar-nav navbar-right top-navbar">
+
+                <!-- Dropdown notifications -->
+                <li class="dropdown">
+                    <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="label label-danger absolute">@if (Model.TicketNotifications.Count(n => n.IsDeleted == false) > 0) {@Model.TicketNotifications.Count(n => n.IsDeleted == false) }
+                    else { }</span></a>
+                    <ul class="dropdown-menu dropdown-message animated half flipInX">
+                        <!-- Dropdown notification header -->
+                        <li class="dropdown-header notif-header">New Notifications</li>
+                        <li class="divider"></li>
+
+                        <!-- Dropdown notification body -->
+                        @foreach (var n in Model.TicketNotifications)
+                        {
+                            if (n.IsDeleted) { }
+                            else
+                            {
+                        <li class="unread">
+                            <a href="@Url.Action("DeleteNotification", "Ticket", new {id = n.Id })">
+                                <p>
+                                    <strong>@n.User.DisplayName</strong> @n.Content <strong>@n.Ticket.Title </strong>
+                                    <br /><i>@n.Ticket.Updated</i>
+                                </p>
+                            </a>
+                        </li>
+                            }
+                        }
+                       
+                        <!-- Dropdown notification footer -->
+                        <li class="dropdown-footer"><a href="#fakelink"><i class="fa fa-refresh"></i></a></li>
+                    </ul>
+                </li>
+                <!-- End Dropdown notifications -->
+                <li>
+                    @Html.Partial("_LoginPartial")
+                </li>
+            </ul>
+          
+        </div><!-- End div .navbar-collapse -->
+    </div><!-- End div .container -->
+</div>
+<!-- END NAVBAR CONTENT-->

@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "Admin";
+
+    Layout = "~/Views/Shared/_layout2.cshtml";
+}
+
+
+
+    <!-- END CONTENT HEADER -->
+    <!-- ============================================================== -->
+    <!-- START YOUR CONTENT HERE -->
+    <!-- ============================================================== -->
+    <div class="body content rows scroll-y">
+       
+        <!-- Page header -->
+            <div class="page-heading">
+                <h1>Fixation<small> Dashboard</small></h1>
+            </div>
+        <!-- End page header -->
+        <!-- Begin info box -->
+            <div class="row">
+                @if (User.IsInRole("Admin")) {
+                <!--Household user info-->
+                @Html.Action("Users")
+                <!--Household user info-->
+                }
+                <!-- Projects Info Box -->
+                 @Html.Action("Projects", "Project")
+                <!-- End Orders Info Box -->
+
+                <!-- Tickets Info Box -->
+                @Html.Action("Tickets", "Ticket")
+                <!-- End Downloads Info Box -->
+
+
+            </div>
+        <!-- End of info box -->
+       @* @if (User.IsInRole("Admin"))
+        {
+            <div class="page-heading">
+                <h1>User<small> List</small></h1>
+            </div>
+            <div class="row">
+            
+            </div>
+        <!-- End div .row -->
+        }*@
+            <div class="page-heading">
+                <h1>Project<small> Info</small></h1>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    @Html.Action("Index", "Project")
+                   
+                </div>
+            </div>
+
+        <div class="page-heading">
+            <h1>Ticket<small> Info</small></h1>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8">
+
+                @Html.Action("Index", "Ticket")
+            </div>
+            <div class="col-sm-4">
+                @Html.Action("TicketComments" , "Ticket")
+            </div>
+        </div>
+        
+        <footer>
+            &copy; @DateTimeOffset.Now.Year  <a href="">Fixation</a>
+        </footer>
+        <!-- End Footer -->
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- END YOUR CONTENT HERE -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END CONTENT -->
+
+
+
+@section scripts {
+    <script>
+    $(document).ready(function() {
+
+        $('#projtable').DataTable();
+        $('#ticketstable').DataTable();
+    })
+</script>
+    }
+

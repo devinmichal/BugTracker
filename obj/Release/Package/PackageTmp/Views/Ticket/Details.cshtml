@@ -1,0 +1,221 @@
+﻿@using Microsoft.AspNet.Identity
+@model BugTracker.Models.Ticket
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_layout2.cshtml";
+}
+
+<div class="body content rows scroll-y">
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <!-- Basic form -->
+            <div class="box-info">
+                <h2><strong>Ticket</strong> Details</h2>
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        Assigned To:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.AssignedUser.FirstName)
+                    </dd>
+
+                    <dt>
+                        Created By:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Owner.FirstName)
+                    </dd>
+
+                    <dt>
+                        Priority:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Priority.Name)
+                    </dd>
+
+                    <dt>
+                        Project:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.Name)
+                    </dd>
+
+                    <dt>
+                        Status:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Status.Name)
+                    </dd>
+
+                    <dt>
+                        Type:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Type.Name)
+                    </dd>
+
+                    <dt>
+                        Title:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+
+                    <dt>
+                        Body:
+                    </dt>
+
+                    <dd>
+                        @Html.Raw(Model.Body)
+                    </dd>
+
+                    <dt>
+                        Created:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Created)
+                    </dd>
+
+                    <dt>
+                        Updated:
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Updated)
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="box-info">
+                    <ul class="nav nav-tabs nav-justified" style="background-color:none">
+                        <li class="active"><a href="#comments" data-toggle="tab"><i class="fa fa-comments"></i> Ticket Comments</a></li>
+                    </ul>
+                    <div class="scroll-widget">
+                        <ul class="media-list">
+                            @if (Model != null)
+                            {
+                                foreach (var n in Model.TicketComments)
+                                {
+
+                                    <li class="media">
+
+                                        <div class="media-body">
+                                            <h4 class="media-heading"><a href="#fakelink"></a>@n.User.FirstName @n.User.LastName <br /><small> @n.Created</small></h4>
+                                            <h5 class="media-heading"><a href="#fakelink"></a>Ticket Title <br /><small> @n.Ticket.Title</small></h5>
+
+                                            <p>
+                                                @Html.Raw(n.Body) @if (n.MediaURl != null)
+                                                {<span><img class="img-responsive" src="@n.MediaURl" /></span>}
+                                            </p>
+
+                                        </div>
+
+                                    </li>
+
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="box-info">
+                                <h2>
+                                    <strong>Leave</strong> Comment
+                                </h2>
+                                <form action="@Url.Action("SubmitComment")" method="post" enctype="multipart/form-data">
+
+
+
+                                    <div class="form-group">
+                                        <input type="hidden" name="TicketId" value="@Model.Id" />
+                                        <input type="hidden" name="UserId" value="@User.Identity.GetUserId()" />
+                                        <input name="image" type="file" class="btn btn-default" title="Select file" id="fileUpload" />
+                                        <textarea class="form-control" id="comment" name="Body" rows="6" placeholder="Comment"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-round  btn-default">Post</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-6">
+                <div class="box-info">
+                    <h2><strong>Ticket</strong> History</h2>
+                    <div>
+
+                        <div class="scroll-widget">
+                            <ul class="media-list">
+                                @foreach (var th in Model.TicketHistory)
+                                {
+                                    <li class="media">
+
+                                        <div class="media-body">
+                                            <dl>
+                                                <dt>
+                                                    Changed By:
+                                                </dt>
+                                                <dd>
+                                                    @th.ChangedBy.DisplayName
+                                                </dd>
+                                                <dt>
+                                                    From:
+                                                </dt>
+                                                <dd>
+
+                                                    @th.OldValue
+                                                </dd>
+                                                <dt>
+                                                    To:
+                                                </dt>
+                                                <dd>
+                                                    @th.NewValue
+                                                </dd>
+
+                                            </dl>
+                                        </div>
+
+
+
+
+                                    </li>
+                                }
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <p class="text-center"><a href="@Url.Action("Edit","Ticket",new { id = Model.Id })"><i class="fa fa-edit"></i>Edit</a></p>
+        <p class="text-center"><a href="@Url.Action("Index","Admin")"><i class="fa fa-home"></i>Back to home</a></p>
+    </div>
+</div>
+@section scripts 
+    {
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "#comment"
+        });
+    </script>
+    }

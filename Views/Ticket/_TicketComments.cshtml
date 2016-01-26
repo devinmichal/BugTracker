@@ -1,0 +1,105 @@
+﻿@model  System.Collections.Generic.IList<ICollection<BugTracker.Models.TicketComment>>
+<div class="box-info full">
+    <!-- Tab comments and popular posts -->
+    <ul class="nav nav-tabs nav-justified">
+        <li class="active"><a href="#comments" data-toggle="tab"><i class="fa fa-comments"></i> Ticket Comments</a></li>
+    </ul>
+    
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!-- Pane comments -->
+        <div class="tab-pane active animated fadeInRight" id="comments">
+            <!-- Begin scroll wrappper -->
+            <div class="scroll-widget">
+                <ul class="media-list">
+                    @if (Model != null) {
+                        foreach (var n in Model)
+                        {
+                            foreach (var n2 in n)
+                            {
+                    <li class="media">
+                    
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#fakelink"></a>@n2.User.FirstName @n2.User.LastName <small>@n2.Created</small></h4>
+                            <h5 class="media-heading"><a href="#fakelink"></a>Ticket<small>@n2.Ticket.Title</small></h5>
+                            <a href="@Url.Action("Details", new { id = n2.Ticket.Id})">
+                                <p>@Html.Raw(n2.Body)</p>
+                            </a>
+                        </div>
+                        
+                    </li>
+                            }
+                        }
+                    }
+                    </ul>
+            </div><!-- End div .scroll-widget -->
+           
+        </div><!-- End div .tab-pane -->
+        @*<!-- Pane popular posts -->
+        <div class="tab-pane animated fadeInRight" id="popular">
+            <!-- Begin scroll wrappper -->
+            <div class="scroll-widget">
+                <ul class="media-list">
+                    <li class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <a href="#fakelink">Cras sit amet erat sit amet lacus egestas</a>
+                                <br /><small>January 17, 2014 at 11:24 PM</small>
+                            </h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                        </div>
+                    </li>
+                    <li class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <a href="#fakelink">Cras sit amet erat sit amet lacus egestas</a>
+                                <br /><small>January 17, 2014 at 08:24 AM</small>
+                            </h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                        </div>
+                    </li>
+                    <li class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <a href="#fakelink">Cras sit amet erat sit amet lacus egestas</a>
+                                <br /><small>January 17, 2014 at 05:24 AM</small>
+                            </h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                        </div>
+                    </li>
+                    <li class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <a href="#fakelink">Cras sit amet erat sit amet lacus egestas</a>
+                                <br /><small>January 17, 2014 at 11:24 PM</small>
+                            </h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                        </div>
+                    </li>
+                    <li class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <a href="#fakelink">Cras sit amet erat sit amet lacus egestas</a>
+                                <br /><small>January 17, 2014 at 08:24 AM</small>
+                            </h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                        </div>
+                    </li>
+                    <li class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <a href="#fakelink">Cras sit amet erat sit amet lacus egestas</a>
+                                <br /><small>January 17, 2014 at 05:24 AM</small>
+                            </h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+                        </div>
+                    </li>
+                </ul>
+            </div><!-- End div .scroll-widget -->
+            <div class="box-footer">
+                <p><a href="#fakelink"><i class="fa fa-share"></i> See all posts</a></p>
+            </div>
+        </div><!-- End div .tab-pane -->
+    </div><!-- End div .tab-content -->*@
+</div>
+</div>

@@ -1,0 +1,109 @@
+﻿
+
+@model BugTracker.Models.ProjectUserViewModel
+@{
+    ViewBag.Title = "Edit";
+
+    Layout = "~/Views/Shared/_layout2.cshtml";
+
+}
+
+
+
+
+
+ 
+<div class="body content rows scroll-y">
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <!-- Basic form -->
+            <div class="box-info">
+                <h2><strong>Project</strong> @Model.Project.Name</h2>
+                <!-- Basic form body -->
+                <div id="basic-form" class="collapse in">
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        using (Html.BeginForm("Edit", "Project", FormMethod.Post, new { @Id = "form1" }))
+                        {
+                            <div class="form-group">
+                                <label for="Name">
+                                    Project name:
+                                </label>
+                                @Html.HiddenFor(m => m.Project.Id)
+                                @Html.TextBoxFor(m => m.Project.Name, new { @class = "form-control" })
+                                <button class="btn btn-default" name="Submit" type="submit" form="form1">Change</button>
+                            </div>
+                        }
+
+                    }
+
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        using (Html.BeginForm("AssignPm", "Project", FormMethod.Post, new { @Id = "form2" }))
+                        {
+                            <div class="form-group">
+                                <label for="Users">
+                                    Assign Project Manager(s):
+                                </label>
+                                @Html.HiddenFor(m => m.Project.Id)
+                                @Html.ListBoxFor(m => m.SelectedUsers, Model.Pms, new { @class = "form-control" })
+                                <button class="btn btn-default" name="Submit" type="submit" form="form2">Add</button>
+
+                            </div>
+                        }
+                    }
+
+                    @if (User.IsInRole("Admin") || User.IsInRole("Project Manager"))
+                    {
+                        using (Html.BeginForm("AssignPm", "Project", FormMethod.Post, new { @Id = "form3" }))
+                        {
+                            <div class="form-group">
+                                <label for="Users">
+                                    Assign Developer(s):
+                                </label>
+                                @Html.HiddenFor(m => m.Project.Id)
+                                @Html.ListBoxFor(m => m.SelectedUsers, Model.Devs, new { @class = "form-control" })
+                                <button class="btn btn-default" name="Submit" type="submit" form="form3">Add</button>
+                            </div>
+                        }
+                    }
+
+                </div><!-- End div #basic-form -->
+            </div><!-- End div .box-info -->
+            <p class="text-center"><a href="@Url.Action("Index","Admin")"><i class="fa fa-home"></i>Back to home</a></p>
+        </div><!-- End div .col-sm-6 -->
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
